@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Camera</string>
+    <string name="save">Save</string>
+    <string name="take_photo">Photo</string>
+    <string name="cancelled">Photo action cancelled</string>
+    <string name="nophoto">No photo to save</string>
+    <string name="saved">Photo saved</string>
+    <string name="ok">OK</string>
+    <string name="pick_name_dialog">Enter new name</string>
+
+</resources>
