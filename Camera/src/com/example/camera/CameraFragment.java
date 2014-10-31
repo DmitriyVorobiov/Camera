@@ -129,8 +129,8 @@ public class CameraFragment extends Fragment implements OnClickListener {
 		getActivity().getWindowManager().getDefaultDisplay()
 				.getMetrics(metrics);
 		// Get the dimensions of the View
-		int targetW = metrics.widthPixels; 	// photoFrame.getWidth();
-		int targetH = metrics.heightPixels;	// photoFrame.getHeight();
+		int targetW = metrics.widthPixels; 
+		int targetH = metrics.heightPixels;
 		// Get the dimensions of the bitmap
 		BitmapFactory.Options bmOptions = new BitmapFactory.Options();
 		bmOptions.inJustDecodeBounds = true;
