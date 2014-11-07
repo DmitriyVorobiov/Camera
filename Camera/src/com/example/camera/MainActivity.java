@@ -26,8 +26,9 @@ public class MainActivity extends ActionBarActivity implements OnClickListener,
 
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1;
 	private static final String TAG = "PickNameDialog";
-	private static final String PHOTO = "photo";
+	private static final String PREPARED_FILE_NAME = "fileName";
 	private final String TEMP_FILE_NAME = "temp";
+	private String currentPath;
 	private File tempPhotoFile;
 	private Button photoMakeButton;
 	private ImageView photoFrame;
@@ -41,7 +42,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener,
 		initViewComponents();
 
 		if (savedInstanceState != null) {
-			photo = savedInstanceState.getParcelable(PHOTO);
+			currentPath = savedInstanceState.getString(PREPARED_FILE_NAME);
 			dialog = (PickNameDialogFragment) getFragmentManager()
 					.findFragmentByTag(TAG);
 			if (dialog != null)
@@ -53,9 +54,22 @@ public class MainActivity extends ActionBarActivity implements OnClickListener,
 						.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
 				TEMP_FILE_NAME);
 
+		photo = getTakenPhoto();
+
 		if (photo != null)
 			showPhoto();
 
+	}
+
+	private Bitmap getTakenPhoto() {
+		if (currentPath != null) {
+			File file = new File(
+					Environment
+							.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+					currentPath);
+			return decodeScaledImage(file);
+		}
+		return null;
 	}
 
 	@Override
@@ -75,6 +89,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener,
 		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 			if (resultCode == Activity.RESULT_OK) {
 				photo = decodeScaledImage(tempPhotoFile);
+				currentPath = TEMP_FILE_NAME;
 				showPhoto();
 			} else if (resultCode == Activity.RESULT_CANCELED) {
 				showToast(getString(R.string.cancelled));
@@ -116,6 +131,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener,
 						.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
 				newFileName + ".jpg");
 		tempPhotoFile.renameTo(preparedFile);
+		currentPath = newFileName.concat(".jpg");
 		showToast(getString(R.string.saved));
 	}
 
@@ -151,7 +167,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener,
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
 		super.onSaveInstanceState(savedInstanceState);
-		savedInstanceState.putParcelable(PHOTO, photo);
+		savedInstanceState.putString(PREPARED_FILE_NAME, currentPath);
 	}
 
 }
