@@ -49,10 +49,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener,
 				dialog.setListener((PickNameDialogFragment.OnCompleteListener) this);
 		}
 
-		tempPhotoFile = new File(
-				Environment
-						.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-				TEMP_FILE_NAME);
+		tempPhotoFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),TEMP_FILE_NAME);
 
 		photo = getTakenPhoto();
 
@@ -63,10 +60,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener,
 
 	private Bitmap getTakenPhoto() {
 		if (currentPath != null) {
-			File file = new File(
-					Environment
-							.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-					currentPath);
+			File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),currentPath);
 			return decodeScaledImage(file);
 		}
 		return null;
@@ -126,10 +120,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener,
 
 	@Override
 	public void onDialogClick(String newFileName) {
-		File preparedFile = new File(
-				Environment
-						.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-				newFileName + ".jpg");
+		File preparedFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),newFileName + ".jpg");
 		tempPhotoFile.renameTo(preparedFile);
 		currentPath = newFileName.concat(".jpg");
 		showToast(getString(R.string.saved));
