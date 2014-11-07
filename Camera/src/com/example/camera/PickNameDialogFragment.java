@@ -15,10 +15,10 @@ public class PickNameDialogFragment extends DialogFragment {
 	public static interface OnCompleteListener {
 		public abstract void onDialogClick(String fileName);
 	}
-//
-//	public PickNameDialogFragment(OnCompleteListener listener) {
-//		pickNameListener = listener;
-//	}
+
+	public void setListener(OnCompleteListener listener) {
+		pickNameListener = listener;
+	}
 
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		AlertDialog.Builder builder = new Builder(getActivity());
@@ -33,7 +33,6 @@ public class PickNameDialogFragment extends DialogFragment {
 						pickNameListener.onDialogClick(fileName);
 					}
 				});
-		// inflate view ?
 		return builder.create();
 	}
 }
